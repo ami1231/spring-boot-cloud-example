@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lotteryaward.game.dao.IGameChartTaskDao">
+  <resultMap id="BaseResultMap" type="lotteryaward.common.domain.GameChartTask">
+    <result column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="GAME_ID" jdbcType="VARCHAR" property="gameId" />
+    <result column="ISSUE" jdbcType="VARCHAR" property="issue" />
+    <result column="RESULT" jdbcType="VARCHAR" property="result" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="RETRY_TIMES" jdbcType="DECIMAL" property="retryTimes" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="RESULT_DATE" jdbcType="TIMESTAMP" property="resultDate" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+		ID, GAME_ID, ISSUE, RESULT, STATUS, RETRY_TIMES, CREATE_DATE, UPDATE_DATE, RESULT_DATE
+  </sql>
+	
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from GAME_CHART_TASK
+		where ID = #{id,jdbcType=DECIMAL}
+ </select>
+  
+  
+  <insert id="insert" parameterType="lotteryaward.common.domain.GameChartTask">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      select GAME_CHART_TASK_ID_SEQ.NEXTVAL FROM DUAL
+    </selectKey>
+    insert into GAME_CHART_TASK (ID, GAME_ID, ISSUE, 
+      RESULT, STATUS, RETRY_TIMES, 
+      CREATE_DATE, UPDATE_DATE, RESULT_DATE
+      )
+    values (#{id,jdbcType=DECIMAL}, #{gameId,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR}, 
+      #{result,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}, #{retryTimes,jdbcType=DECIMAL}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{resultDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+</mapper>

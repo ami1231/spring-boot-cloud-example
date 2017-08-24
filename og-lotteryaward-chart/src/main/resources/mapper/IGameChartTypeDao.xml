@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lotteryaward.chart.dao.IGameChartTypeDao">
+	<resultMap id="BaseResultMap" type="lotteryaward.common.domain.GameChartType">
+		<id column="ID" jdbcType="DECIMAL" property="id" />
+		<result column="NAME" jdbcType="VARCHAR" property="name" />
+		<result column="GAME_CLASS_ID" jdbcType="VARCHAR" property="gameClassId" />
+		<result column="CHART_CODE" jdbcType="VARCHAR" property="chartCode" />
+		<result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID, NAME, GAME_CLASS_ID, CHART_CODE, CREATE_DATE
+	</sql>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from GAME_CHART_TYPE
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+	
+	<insert id="insert" parameterType="lotteryaward.common.domain.GameChartType">
+		<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+			select GAME_CHART_TYPE_ID_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		insert into GAME_CHART_TYPE (ID, NAME, GAME_CLASS_ID,
+		CHART_CODE, CREATE_DATE)
+		values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR},
+		#{gameClassId,jdbcType=VARCHAR},
+		#{chartCode,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP})
+	</insert>
+	
+</mapper>

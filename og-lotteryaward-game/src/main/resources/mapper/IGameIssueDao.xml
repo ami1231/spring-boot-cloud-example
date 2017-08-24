@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lotteryaward.game.dao.IGameIssueDao">
+  <resultMap id="BaseResultMap" type="lotteryaward.common.domain.GameIssue">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="GAME_ID" jdbcType="VARCHAR" property="gameId" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="ISSUE" jdbcType="VARCHAR" property="issue" />
+    <result column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="AWARD_TIME" jdbcType="TIMESTAMP" property="awardTime" />
+    <result column="FULL_ISSUE" jdbcType="VARCHAR" property="fullIssue" />
+    <result column="PLAY_ID" jdbcType="VARCHAR" property="playId" />
+    <result column="ISSUE_DATE" jdbcType="TIMESTAMP" property="issueDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, GAME_ID, STATUS, ISSUE, START_TIME, END_TIME, AWARD_TIME, FULL_ISSUE, PLAY_ID, 
+    ISSUE_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from GAME_ISSUE
+    where ID = #{id}
+  </select>
+  <insert id="insert" parameterType="lotteryaward.common.domain.GameIssue">
+    insert into GAME_ISSUE (ID, GAME_ID, STATUS, 
+      ISSUE, START_TIME, END_TIME, 
+      AWARD_TIME, FULL_ISSUE, PLAY_ID, 
+      ISSUE_DATE)
+    values (#{id,jdbcType=DECIMAL}, #{gameId,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}, 
+      #{issue,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{awardTime,jdbcType=TIMESTAMP}, #{fullIssue,jdbcType=VARCHAR}, #{playId,jdbcType=VARCHAR}, 
+      #{issueDate,jdbcType=TIMESTAMP})
+  </insert>
+</mapper>

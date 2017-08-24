@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lotteryaward.chart.dao.IGameChartRecordDao">
+  <resultMap id="BaseResultMap" type="lotteryaward.common.domain.GameChartRecord">
+    <result column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="GAME_ID" jdbcType="VARCHAR" property="gameId" />
+    <result column="GAME_NAME" jdbcType="VARCHAR" property="gameName" />
+    <result column="PLAY_ID" jdbcType="VARCHAR" property="playId" />
+    <result column="ISSUE" jdbcType="VARCHAR" property="issue" />
+    <result column="RESULT" jdbcType="VARCHAR" property="result" />
+    <result column="CHART_RECORD" jdbcType="VARCHAR" property="chartRecord" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List">
+		ID, GAME_ID, GAME_NAME, PLAY_ID, ISSUE, RESULT, CHART_RECORD, CREATE_DATE, UPDATE_DATE
+  </sql>
+	
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from GAME_CHART_RECORD
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+  
+  <insert id="insert" parameterType="lotteryaward.common.domain.GameChartRecord">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      select GAME_CHART_RECORD_ID_SEQ.NEXTVAL FROM DUAL
+    </selectKey>
+    insert into GAME_CHART_RECORD (ID, GAME_ID, GAME_NAME, 
+      PLAY_ID, ISSUE, RESULT, 
+      CHART_RECORD, CREATE_DATE, UPDATE_DATE
+      )
+    values (#{id,jdbcType=DECIMAL}, #{gameId,jdbcType=VARCHAR}, #{gameName,jdbcType=VARCHAR}, 
+      #{playId,jdbcType=VARCHAR}, #{issue,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}, 
+      #{chartRecord,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+</mapper>

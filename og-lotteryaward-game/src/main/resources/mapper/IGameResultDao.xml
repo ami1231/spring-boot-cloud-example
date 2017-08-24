@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lotteryaward.game.dao.IGameResultDao">
+  <resultMap id="BaseResultMap" type="lotteryaward.common.domain.GameResult">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="GAME_ID" jdbcType="VARCHAR" property="gameId" />
+    <result column="FULL_ISSUE" jdbcType="VARCHAR" property="fullIssue" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="RESULT_DATE" jdbcType="TIMESTAMP" property="resultDate" />
+    <result column="RESULT" jdbcType="VARCHAR" property="result" />
+    <result column="RESULT_TYPE" jdbcType="DECIMAL" property="resultType" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="LAST_RESULT_DATE" jdbcType="TIMESTAMP" property="lastResultDate" />
+    <result column="GAME_NAME" jdbcType="VARCHAR" property="gameName" />
+    <result column="IS_CANCE_STATUS" jdbcType="DECIMAL" property="isCanceStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, GAME_ID, FULL_ISSUE, CREATE_DATE, RESULT_DATE, RESULT, RESULT_TYPE, STATUS, LAST_RESULT_DATE, 
+    GAME_NAME, IS_CANCE_STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from GAME_RESULT
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <insert id="insert" parameterType="lotteryaward.common.domain.GameResult">
+    insert into GAME_RESULT (ID, GAME_ID, FULL_ISSUE, 
+      CREATE_DATE, RESULT_DATE, RESULT, 
+      RESULT_TYPE, STATUS, LAST_RESULT_DATE, 
+      GAME_NAME, IS_CANCE_STATUS)
+    values (#{id,jdbcType=DECIMAL}, #{gameId,jdbcType=VARCHAR}, #{fullIssue,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{resultDate,jdbcType=TIMESTAMP}, #{result,jdbcType=VARCHAR}, 
+      #{resultType,jdbcType=DECIMAL}, #{status,jdbcType=DECIMAL}, #{lastResultDate,jdbcType=TIMESTAMP}, 
+      #{gameName,jdbcType=VARCHAR}, #{isCanceStatus,jdbcType=DECIMAL})
+  </insert>
+</mapper>
